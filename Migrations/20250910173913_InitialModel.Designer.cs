@@ -12,7 +12,7 @@ using PasseioStick.Models;
 namespace PasseioStick.Migrations
 {
     [DbContext(typeof(PasseioStickDbContext))]
-    [Migration("20250910170016_InitialModel")]
+    [Migration("20250910173913_InitialModel")]
     partial class InitialModel
     {
         /// <inheritdoc />
@@ -78,11 +78,11 @@ namespace PasseioStick.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("NameComplete")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
