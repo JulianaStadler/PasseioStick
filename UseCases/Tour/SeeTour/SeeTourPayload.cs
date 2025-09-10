@@ -1,7 +1,7 @@
-namespace PasseioStick.UseCases.Tour.EditTour;
+namespace PasseioStick.UseCases.Tour.SeeTour;
 using System.ComponentModel.DataAnnotations;
 
-public record EditTourPayload
+public record SeeTourPayload
 {
 
 }

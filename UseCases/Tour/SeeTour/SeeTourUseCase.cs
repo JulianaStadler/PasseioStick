@@ -1,9 +1,9 @@
-namespace PasseioStick.UseCases.Tour.EditTour;
+namespace PasseioStick.UseCases.Tour.SeeTour;
 using System.ComponentModel.DataAnnotations;
-public record EditTourUseCase
+public record SeeTourUseCase
 {
-    public async Task<Result<EditTourResponse>> Do(EditTourPayload payload)
+    public async Task<Result<SeeTourResponse>> Do(SeeTourPayload payload)
     {
-        return Result<EditTourResponse>.Success(null);
+        return Result<SeeTourResponse>.Success(null);
     }
 }

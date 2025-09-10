@@ -1,5 +1,5 @@
-namespace PasseioStick.UseCases.Tour.EditTour;
+namespace PasseioStick.UseCases.Tour.SeeTour;
 
-public record EditTourResponse{
+public record SeeTourResponse{
     
 };
