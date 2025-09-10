@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using PasseioStick.Models;
 
+using PasseioStick.UseCases.Tour.CreateTour;
+using PasseioStick.UseCases.Tour.EditTour;
+using PasseioStick.UseCases.Tour.SeeTour;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PasseioStickDbContext>(options => {
