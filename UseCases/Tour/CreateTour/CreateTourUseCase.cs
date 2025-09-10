@@ -1,9 +1,31 @@
 namespace PasseioStick.UseCases.Tour.CreateTour;
 using System.ComponentModel.DataAnnotations;
-public record CreateTourUseCase
+using PasseioStick.Models;
+using PasseioStick.Services.Users;
+
+public record CreateTourUseCase(
+    PasseioStickDbContext ctx,
+    IUserService userService
+)
 {
     public async Task<Result<CreateTourResponse>> Do(CreateTourPayload payload)
     {
-        return Result<CreateTourResponse>.Success(null);
+        var user = await userService.findThisUser(payload.CratedByUserId); 
+        if (user == null)
+            return Result<CreateTourResponse>.Fail("User not found");
+        
+        var tour = new Tour
+        {
+            Title = payload.Title,
+            Description = payload.Description,
+            CratedByUserId = payload.CratedByUserId,
+            CratedByUser = user
+        };
+
+        ctx.Tours.Add(tour);
+        await ctx.SaveChangesAsync();
+
+        return Result<CreateTourResponse>.Success(new(tour.Id));
+
     }
 }

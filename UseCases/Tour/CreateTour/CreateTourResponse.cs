@@ -1,5 +1,5 @@
 namespace PasseioStick.UseCases.Tour.CreateTour;
 
-public record CreateTourResponse{
-    
-};
+public record CreateTourResponse(
+    Guid id
+);

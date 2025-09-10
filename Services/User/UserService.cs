@@ -18,4 +18,12 @@ public class UserService(PasseioStickDbContext ctx) : IUserService
         );
         return user;
     }
+
+    public async Task<User> findThisUser(Guid id)
+    {
+        var user = await ctx.Users.FirstOrDefaultAsync(
+            p => p.Id == id
+        );
+        return user;
+    }
 }

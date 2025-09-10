@@ -1,9 +1,20 @@
 namespace PasseioStick.UseCases.Tour.SeeTour;
 using System.ComponentModel.DataAnnotations;
-public record SeeTourUseCase
+using PasseioStick.Models;
+using PasseioStick.Services.Tours;
+
+public record SeeTourUseCase(
+    PasseioStickDbContext ctx, 
+    ITourService tourService
+)
 {
     public async Task<Result<SeeTourResponse>> Do(SeeTourPayload payload)
     {
-        return Result<SeeTourResponse>.Success(null);
+        var tour = await tourService.findThisTour(payload.TourId);
+        
+        if (tour == null)
+            return Result<SeeTourResponse>.Fail("Tour not found");
+        
+        return Result<SeeTourResponse>.Success(new SeeTourResponse(tour.Id));
     }
 }

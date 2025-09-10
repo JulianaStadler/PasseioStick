@@ -1,5 +1,5 @@
 namespace PasseioStick.UseCases.Tour.SeeTour;
 
-public record SeeTourResponse{
-    
-};
+public record SeeTourResponse(
+    Guid id
+);

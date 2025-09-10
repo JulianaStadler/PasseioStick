@@ -17,6 +17,11 @@ public static class TourEndpoints
             [FromServices] CreateTourUseCase useCase
         ) =>
         {
+            // cheacar se usuario esta autenticado
+            var checkUserJWT = http.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (checkUserJWT == null)
+                return Results.Unauthorized(); // usuario nao autenticado
+            Guid loggedUserId = Guid.Parse(checkUserJWT);
 
             var result = await useCase.Do(payload);
 
@@ -26,7 +31,7 @@ public static class TourEndpoints
                 (false, _) => Results.BadRequest(result.Reason),
                 (true, _) => Results.Ok(result.Data)
             };
-        });
+        }).RequireAuthorization();
         // ---------------------- EDIT TOUR --------------------- //
         app.MapPut("/tour", async (
             HttpContext http,
@@ -41,7 +46,7 @@ public static class TourEndpoints
             Guid loggedUserId = Guid.Parse(checkUserJWT);
 
             // checar se o userid da acao e o mesmo do jwt
-            if (payload.UserId != loggedUserId)
+            if (payload.UserThatCreatedMe != loggedUserId)
                 return Results.Forbid(); // tentativa de editar um tour que ele nao criou
             
             var result = await useCase.Do(payload);
@@ -52,7 +57,7 @@ public static class TourEndpoints
                 (false, _) => Results.BadRequest(result.Reason),
                 (true, _) => Results.Ok(result.Data)
             };
-        });
+        }).RequireAuthorization();
 
 
         // ---------------------- SEE TOUR ---------------------- //
@@ -61,7 +66,7 @@ public static class TourEndpoints
             [FromServices] SeeTourUseCase useCase
         ) =>
         {
-            var payload = new SeeTourPayload{};
+            var payload = new SeeTourPayload{TourId = id};
             var result = await useCase.Do(payload);
 
             return (result.IsSuccess, result.Reason) switch
