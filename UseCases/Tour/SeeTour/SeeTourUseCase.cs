@@ -17,7 +17,7 @@ public record SeeTourUseCase(
             return Result<SeeTourResponse>.Fail("Tour not found");
         
 
-        var PointList = ctx.Tours
+        var PointList = await ctx.Tours
             .Where(t => t.Id == payload.TourId)
             .SelectMany(t => t.PointsOfTour)
             .Select(p => new TourPoints
