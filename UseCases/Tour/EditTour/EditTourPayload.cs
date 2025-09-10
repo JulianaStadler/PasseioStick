@@ -9,6 +9,7 @@ public record EditTourPayload
     [Required]
     public Guid UserThatCreatedMe { get; set; }
 
+
     [StringLength(20, MinimumLength = 5)]
     public string? Name { get; set; }
 
