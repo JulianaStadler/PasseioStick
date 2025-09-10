@@ -1,5 +1,6 @@
 namespace PasseioStick.UseCases.Tour.SeeTour;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using PasseioStick.Models;
 using PasseioStick.Services.Tours;
 
@@ -15,6 +16,17 @@ public record SeeTourUseCase(
         if (tour == null)
             return Result<SeeTourResponse>.Fail("Tour not found");
         
-        return Result<SeeTourResponse>.Success(new SeeTourResponse(tour.Id));
+
+        var PointList = ctx.Tours
+            .Where(t => t.Id == payload.TourId)
+            .SelectMany(t => t.PointsOfTour)
+            .Select(p => new TourPoints
+            {
+                Id = p.Id,
+                Title = p.Title
+            })
+            .ToArrayAsync();
+
+        return Result<SeeTourResponse>.Success(new SeeTourResponse(tour.Id, PointList));
     }
 }

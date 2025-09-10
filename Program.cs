@@ -1,18 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 using PasseioStick.Models;
-
 using PasseioStick.UseCases.Tour.CreateTour;
 using PasseioStick.UseCases.Tour.EditTour;
 using PasseioStick.UseCases.Tour.SeeTour;
 using PasseioStick.UseCases.Login;
 using PasseioStick.Services.JWT;
 using PasseioStick.Services.Password;
-using PasseioStick.Endpoints;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using PasseioStick.Services.Users;
 using PasseioStick.Services.Tours;
+using PasseioStick.Endpoints;
 
 
 var builder = WebApplication.CreateBuilder(args);

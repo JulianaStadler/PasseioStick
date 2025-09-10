@@ -54,6 +54,7 @@ public static class TourEndpoints
             return (result.IsSuccess, result.Reason) switch
             {
                 (false, "Tuor not found") => Results.NotFound(result.Reason),
+                (false, "Point not found") => Results.NotFound(result.Reason),
                 (false, _) => Results.BadRequest(result.Reason),
                 (true, _) => Results.Ok(result.Data)
             };

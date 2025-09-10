@@ -12,4 +12,8 @@ public class TourService(PasseioStickDbContext ctx) : ITourService
         );
         return tour;
     }
+    public string BeautyDescription(string text)
+    {
+        return text.Replace("  ", " ");
+    }
 }

@@ -1,11 +1,13 @@
 namespace PasseioStick.UseCases.Tour.CreateTour;
 using System.ComponentModel.DataAnnotations;
 using PasseioStick.Models;
+using PasseioStick.Services.Tours;
 using PasseioStick.Services.Users;
 
 public record CreateTourUseCase(
     PasseioStickDbContext ctx,
-    IUserService userService
+    IUserService userService,
+    ITourService tourService
 )
 {
     public async Task<Result<CreateTourResponse>> Do(CreateTourPayload payload)
@@ -17,7 +19,7 @@ public record CreateTourUseCase(
         var tour = new Tour
         {
             Title = payload.Title,
-            Description = payload.Description,
+            Description = tourService.BeautyDescription(payload.Description),
             CratedByUserId = payload.CratedByUserId,
             CratedByUser = user
         };
